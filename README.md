@@ -1,9 +1,14 @@
 # python_exercises
-python exercises
+======
 
-original questions [src](https://github.com/zhiwehu/Python-programming-exercises)
+## An assortment of python practices
+------
 
-questions are contained in python_exercises/questions
+### chaos
+Runge-Kutta etc for non-linear dynamics
+
+### python_challenge
+General handling of easy input/output, original questions [src](https://github.com/zhiwehu/Python-programming-exercises). Original questions in python_exercises/questions
 
 Key Notes
 
