@@ -43,5 +43,5 @@ if __name__ == '__main__':
     while  i < len(t)-1:
         x[i+1], y[i+1] = runge_kutta_2d(duffing_xp, duffing_yp, x[i], y[i], t[i], h, **vars)
         i += 1
-    plt.plot(x, y)
+    plt.scatter(x, y, s=0.01)
     plt.show()
