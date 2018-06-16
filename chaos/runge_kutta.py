@@ -14,8 +14,8 @@ def runge_kutta_2d(fx, fy, x0, y0, t0, h, **kwargs):
         kx3 = fx(x0+kx2*h/2, y0+ky2*h/2, t0+h/2, **kwargs)
         ky3 = fy(x0+kx2*h/2, y0+ky2*h/2, t0+h/2, **kwargs)
 
-        kx4 = fx(x0+kx3*h, y0+ky3*h, t0+h/2, **kwargs)
-        ky4 = fy(x0+kx3*h, y0+ky3*h, t0+h/2, **kwargs)
+        kx4 = fx(x0+kx3*h, y0+ky3*h, t0+h, **kwargs)
+        ky4 = fy(x0+kx3*h, y0+ky3*h, t0+h, **kwargs)
 
         x1 = x0 + (kx1 + 2*kx2 + 2*kx3 + kx4)*h/6
         y1 = y0 + (ky1 + 2*ky2 + 2*ky3 + ky4)*h/6
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     y0 = 0
     t0 = 0
     h = 0.01
-    vars = {"a": -1, "b": 1, "gamma": 1, "w": 1, "F":0.34875}
+    vars = {"a": -1, "b": 1, "gamma": 0.25, "w": 1, "F":0.34875}
     t = np.arange(0, 200, h)
     x = np.zeros_like(t)
     y = np.zeros_like(t)
@@ -43,5 +43,5 @@ if __name__ == '__main__':
     while  i < len(t)-1:
         x[i+1], y[i+1] = runge_kutta_2d(duffing_xp, duffing_yp, x[i], y[i], t[i], h, **vars)
         i += 1
-    plt.plot(t, x)
+    plt.plot(x, y)
     plt.show()
