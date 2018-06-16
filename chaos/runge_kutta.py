@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 def runge_kutta_2d(fx, fy, x0, y0, t0, h, **kwargs):
         kx1 = fx(x0, y0, t0, **kwargs)
@@ -19,7 +20,6 @@ def runge_kutta_2d(fx, fy, x0, y0, t0, h, **kwargs):
         x1 = x0 + (kx1 + 2*kx2 + 2*kx3 + kx4)*h/6
         y1 = y0 + (ky1 + 2*ky2 + 2*ky3 + ky4)*h/6
 
-        print(kx1, ky1)
         return x1, y1
 
 def duffing_xp(x, y, t, **kwargs):
@@ -34,3 +34,14 @@ if __name__ == '__main__':
     t0 = 0
     h = 0.01
     vars = {"a": -1, "b": 1, "gamma": 1, "w": 1, "F":0.34875}
+    t = np.arange(0, 200, h)
+    x = np.zeros_like(t)
+    y = np.zeros_like(t)
+    x[0] = x0
+    y[0] = y0
+    i = 0
+    while  i < len(t)-1:
+        x[i+1], y[i+1] = runge_kutta_2d(duffing_xp, duffing_yp, x[i], y[i], t[i], h, **vars)
+        i += 1
+    plt.plot(t, x)
+    plt.show()
