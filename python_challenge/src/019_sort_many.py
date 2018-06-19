@@ -16,7 +16,8 @@ class member(object):
 class memlist(object):
     def __init__(self, mem_l):
         self.l = []
-        for line in mem_l:            self.l.append(member(line.split(',')))
+        for line in mem_l:
+            self.l.append(member(line.split(',')))
 
     def __str__(self):
         tmp = []
