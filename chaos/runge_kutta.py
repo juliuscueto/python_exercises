@@ -29,20 +29,21 @@ def duffing_yp(x, y, t, **kwargs):
     return -2*kwargs["gamma"]*y - kwargs["a"]*x - kwargs["b"]*x**3 + kwargs["F"]*np.cos(kwargs["w"]*t)
 
 if __name__ == '__main__':
-    # x0 = 0.09
-    # y0 = 0
+    # x0 = 1
+    # y0 = -7
     # t0 = 0
     # h = 0.01
+    # epoch = 500
     # fig, axes = plt.subplots(nrows = 2, ncols = 2)
-    # axes[0,0].set_title('X F=0.34875')
-    # axes[0,1].set_title('X F=0.42')
-    # axes[1,0].set_title('trajectory F=0.34875')
-    # axes[1,1].set_title('trajectory F=0.42')
+    # axes[0,0].set_title('X F=0.34875 x0={0:3.0f} y0={1:3.0f}'.format(x0,y0))
+    # axes[0,1].set_title('X F=0.42 x0={0:3.0f} y0={1:3.0f}'.format(x0,y0))
+    # axes[1,0].set_title('trajectory F=0.34875 x0={0:3.0f} y0={1:3.0f}'.format(x0,y0))
+    # axes[1,1].set_title('trajectory F=0.42 x0={0:3.0f} y0={1:3.0f}'.format(x0,y0))
     # vars1 = {"a": -1, "b": 1, "gamma": 0.25, "w": 1, "F":0.34875}
-    # vars = {"a": -1, "b": 1, "gamma": 0.25, "w": 1, "F":0.34875}
+    # vars2 = {"a": -1, "b": 1, "gamma": 0.25, "w": 1, "F":0.42}
     # j = 0
     # for vars in [vars1, vars2]:
-    #     t = np.arange(0, 200, h)
+    #     t = np.arange(t0, epoch, h)
     #     x = np.zeros_like(t)
     #     y = np.zeros_like(t)
     #     x[0] = x0
@@ -52,35 +53,40 @@ if __name__ == '__main__':
     #         x[i+1], y[i+1] = runge_kutta_2d(duffing_xp, duffing_yp, x[i], y[i], t[i], h, **vars)
     #         i += 1
     #     axes[0,j].plot(t, x)
+    #     axes[0,j].set_ylim(0,1)
     #     axes[1,j].scatter(x, y, s=0.01)
+    #     axes[1,j].set_xlim(-1.5,1.5)
+    #     axes[1,j].set_ylim(-1.5,1.5)
     #     j += 1
     # fig.tight_layout()
-    # plt.savefig('runge_kutta1.png')
-    x0 = 0.09
+    # # plt.show()
+    # plt.savefig('results/runge_kutta2.png')
+
+    x0 = 20
     y0 = 0
     t0 = 0
     h = 0.01
-    # vars = {"a": -1, "b": 1, "gamma": 0.25, "w": 1, "F":0.34875}
-    vars = {"a": -1, "b": 1, "gamma": 0.25, "w": 1, "F":0.42}
-    for x0 in np.arange(-10,10,1):
-        for y0 in np.arange(-10,10,1):
-            fig, axes = plt.subplots(nrows = 1, ncols = 2)
-            t = np.arange(0, 200, h)
-            x = np.zeros_like(t)
-            y = np.zeros_like(t)
-            x[0] = x0
-            y[0] = y0
-            i = 0
-            while  i < len(t)-1:
-                x[i+1], y[i+1] = runge_kutta_2d(duffing_xp, duffing_yp, x[i], y[i], t[i], h, **vars)
-                i += 1
-            axes[0].plot(t, x)
-            axes[1].scatter(x, y, s=0.01)
-            axes[0].set_ylim(-1,1)
-            axes[1].set_xlim(-2.5,2.5)
-            axes[1].set_ylim(-2.5,2.5)
-            axes[0].set_title('X x0={0:2.0f} y0={1:2.0f}'.format(x0,y0))
-            axes[1].set_title('trajectory x0={0:2.0f} y0={1:2.0f}'.format(x0,y0))
-            fig.tight_layout()
-            plt.savefig('results/xy0_step_1/x0={0:2.0f}_y0={1:2.0f}.png'.format(x0,y0))
-            plt.close()
+    vars = {"a": -1, "b": 1, "gamma": 0.25, "w": 1, "F":0.34875}
+    # vars = {"a": -1, "b": 1, "gamma": 0.25, "w": 1, "F":0.42}
+    # for x0 in np.arange(-100,100,20):
+    for y0 in np.arange(78.07,78.08,0.0001):
+        fig, axes = plt.subplots(nrows = 1, ncols = 2)
+        t = np.arange(0, 200, h)
+        x = np.zeros_like(t)
+        y = np.zeros_like(t)
+        x[0] = x0
+        y[0] = y0
+        i = 0
+        while  i < len(t)-1:
+            x[i+1], y[i+1] = runge_kutta_2d(duffing_xp, duffing_yp, x[i], y[i], t[i], h, **vars)
+            i += 1
+        axes[0].plot(t, x)
+        axes[1].scatter(x, y, s=0.01)
+        axes[0].set_ylim(-1,1)
+        axes[1].set_xlim(-2.5,2.5)
+        axes[1].set_ylim(-2.5,2.5)
+        axes[0].set_title('X x0={0:2.4f} y0={1:2.4f}'.format(x0,y0))
+        axes[1].set_title('trajectory x0={0:2.4f} y0={1:2.4f}'.format(x0,y0))
+        fig.tight_layout()
+        plt.savefig('results/xy0_step_10_otherF_closeup/x0={0:2.4f}_y0={1:2.4f}.png'.format(x0,y0))
+        plt.close()
